@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.mappers;
 
+import com.jbklenterpirse.petsGoApp.builders.PetDtoBuilder;
 import com.jbklenterpirse.petsGoApp.builders.PetEntityBuilder;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
@@ -38,6 +39,36 @@ public class PetsMapper {
         }
 
         return entityBuilder.build();
+    }
+
+    public PetDto fromEntityToDto(PetEntity entity){
+        if(Objects.isNull(entity)){
+            return null;
+        }
+
+        var dtoBuilder = new PetDtoBuilder();
+
+        if(Objects.nonNull(entity.getId())){
+            dtoBuilder.withId(entity.getId());
+        }
+
+        if(Objects.nonNull(entity.getName())){
+            dtoBuilder.withName(entity.getName());
+        }
+
+        if(Objects.nonNull(entity.getAge())){
+            dtoBuilder.withAge(entity.getAge());
+        }
+
+        if(Objects.nonNull(entity.getWeight())){
+            dtoBuilder.withWeight(entity.getWeight());
+        }
+
+        if(Objects.nonNull(entity.getType())){
+            dtoBuilder.withType(entity.getType());
+        }
+
+        return dtoBuilder.build();
     }
 
 }

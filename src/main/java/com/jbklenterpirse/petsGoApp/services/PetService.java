@@ -5,6 +5,9 @@ import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PetService {
 
@@ -19,5 +22,12 @@ public class PetService {
     public void setPet(PetDto dto){
         var entity = petsMapper.fromDtoToEntity(dto);
         petsRepository.save(entity);
+    }
+
+    public List<PetDto> getAllPets() {
+        var petsEntity = petsRepository.findAll();
+        return petsEntity.stream()
+                .map(entity -> petsMapper.fromEntityToDto(entity))
+                .collect(Collectors.toList());
     }
 }

@@ -2,10 +2,9 @@ package com.jbklenterpirse.petsGoApp.controllers;
 
 import com.jbklenterpirse.petsGoApp.services.PetService;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/pets")
@@ -15,6 +14,11 @@ public class PetsController {
 
     public PetsController(PetService petService) {
         this.petService = petService;
+    }
+
+    @GetMapping
+    public List<PetDto> getPets(){
+        return petService.getAllPets();
     }
 
     @PostMapping
