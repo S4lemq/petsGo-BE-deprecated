@@ -3,11 +3,14 @@ package com.jbklenterpirse.petsGoApp;
 import com.jbklenterpirse.petsGoApp.builders.PetDtoBuilder;
 import com.jbklenterpirse.petsGoApp.builders.PetEntityBuilder;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
+import com.jbklenterpirse.petsGoApp.enums.ValidatorsPetEnum;
+import com.jbklenterpirse.petsGoApp.exceptions.PetIncompleteException;
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.PetService;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
+import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +24,15 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class PetsServiceTest {
 
     @Mock
     private PetsRepository petsRepository;
+    private PetValidator petValidator = new PetValidator();
     private final PetsMapper petsMapper = new PetsMapper();
 
     private PetService petService;
@@ -118,11 +124,20 @@ public class PetsServiceTest {
     void should_check_if_the_petReposiotry_save_was_called_one_time() {
         //given
         var type = PetType.DOG;
+        var name = "nero";
+        var weight = BigDecimal.TEN;
+        var age = BigDecimal.ONE;
         PetDto petDto = new PetDtoBuilder()
                 .withType(type)
+                .withName(name)
+                .withWeight(weight)
+                .withAge(age)
                 .build();
         PetEntity petEntity = new PetEntityBuilder()
                 .withType(type)
+                .withName(name)
+                .withWeight(weight)
+                .withAge(age)
                 .build();
         //when
         petService.setPet(petDto);
@@ -132,6 +147,16 @@ public class PetsServiceTest {
 
     }
 
+    @Test
+    void should_throw_exception_when_age_in_pet_is_null() {
+        //given
+        PetDto pet = new PetDto();
 
+        //when
+        var result = assertThrows(PetIncompleteException.class,
+                () -> petService.setPet(pet));
 
+        //then
+        assertEquals(ValidatorsPetEnum.NO_AGE.getMessage(), result.getMessage());
+    }
 }

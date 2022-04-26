@@ -1,13 +1,12 @@
 package com.jbklenterpirse.petsGoApp.controllers;
 
-import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.PetService;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/pets")
