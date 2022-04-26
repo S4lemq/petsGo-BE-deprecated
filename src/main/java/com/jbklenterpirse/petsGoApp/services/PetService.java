@@ -3,6 +3,7 @@ package com.jbklenterpirse.petsGoApp.services;
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
+import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,16 @@ public class PetService {
 
     private final PetsRepository petsRepository;
     private final PetsMapper petsMapper;
+    private final PetValidator petValidator;
 
-    public PetService(PetsRepository petsRepository, PetsMapper petsMapper) {
+    public PetService(PetsRepository petsRepository, PetsMapper petsMapper, PetValidator petValidator) {
         this.petsRepository = petsRepository;
         this.petsMapper = petsMapper;
+        this.petValidator = petValidator;
     }
 
     public void setPet(PetDto dto){
+        petValidator.validate(dto);
         var entity = petsMapper.fromDtoToEntity(dto);
         petsRepository.save(entity);
     }
