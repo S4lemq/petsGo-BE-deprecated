@@ -39,7 +39,7 @@ public class PetsServiceTest {
 
     @BeforeEach
     public void init(){
-        petService = new PetService(petsRepository, petsMapper);
+        petService = new PetService(petsRepository, petsMapper, petValidator);
     }
 
 
