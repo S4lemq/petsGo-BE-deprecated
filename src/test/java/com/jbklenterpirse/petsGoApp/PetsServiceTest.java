@@ -150,7 +150,10 @@ public class PetsServiceTest {
     @Test
     void should_throw_exception_when_age_in_pet_is_null() {
         //given
-        PetDto pet = new PetDtoBuilder().withWeight(BigDecimal.ONE).build();
+        PetDto pet = new PetDtoBuilder()
+                .withName("a")
+                .withWeight(BigDecimal.ONE)
+                .build();
 
         //when
         var result = assertThrows(PetIncompleteException.class,
@@ -163,7 +166,10 @@ public class PetsServiceTest {
     @Test
     void should_throw_exception_when_weight_in_pet_is_null() {
         //given
-        PetDto pet = new PetDtoBuilder().withAge(BigDecimal.TEN).build();
+        PetDto pet = new PetDtoBuilder()
+                .withName("a")
+                .withAge(BigDecimal.TEN)
+                .build();
 
         //when
         var result = assertThrows(PetIncompleteException.class,
@@ -171,5 +177,35 @@ public class PetsServiceTest {
 
         //then
         assertEquals(ValidatorsPetEnum.NO_WEIGHT.getMessage(), result.getMessage());
+    }
+
+    @Test
+    void should_throw_exception_when_name_in_pet_is_null() {
+        //given
+        PetDto pet = new PetDtoBuilder()
+                .withAge(BigDecimal.TEN)
+                .withWeight(BigDecimal.TEN)
+                .build();
+
+        //when
+        var result = assertThrows(PetIncompleteException.class,
+                () -> petService.setPet(pet));
+
+        //then
+        assertEquals(ValidatorsPetEnum.NO_NAME.getMessage(), result.getMessage());
+    }
+
+    @Test
+    void should_throw_exception_when_name_and_weight_and_height_is_null() {
+        //given
+        PetDto pet = new PetDto();
+
+        //when
+        var result = assertThrows(PetIncompleteException.class,
+                () -> petService.setPet(pet));
+
+        //then
+        assertEquals(ValidatorsPetEnum.NO_WEIGHT.getMessage() + ", " +
+                ValidatorsPetEnum.NO_NAME.getMessage() + ", " + ValidatorsPetEnum.NO_AGE.getMessage(), result.getMessage());
     }
 }
