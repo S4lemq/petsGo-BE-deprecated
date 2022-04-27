@@ -10,12 +10,15 @@ import java.util.Objects;
 @Component
 public class PetValidator {
 
+    private Validator validator = new WeightValidator();
+
     public void validate(PetDto dto){
-        if(Objects.isNull(dto.getAge())){
-            throw new PetIncompleteException(ValidatorsPetEnum.NO_AGE.getMessage(), "B337A330D8CB40D681405A1061D33F04");
+        var validatorMessage = validator.valid(dto, new ValidatorMessage());
+
+        if(validatorMessage.getMessage().isEmpty()){
+            return;
         }
-        if(Objects.isNull(dto.getWeight())){
-            throw new PetIncompleteException(ValidatorsPetEnum.NO_WEIGHT.getMessage(), "2EF7497A950E45A4968A91DE5FF6884F");
-        }
+
+        throw new PetIncompleteException(validatorMessage.getMessage(),validatorMessage.getCode());
     }
 }
