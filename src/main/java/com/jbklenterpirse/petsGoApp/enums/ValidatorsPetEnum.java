@@ -2,7 +2,8 @@ package com.jbklenterpirse.petsGoApp.enums;
 
 public enum ValidatorsPetEnum {
 
-    NO_AGE("age is null");
+    NO_AGE("age is null"),
+    NO_WEIGHT("weight is null");
 
     private final String message;
 

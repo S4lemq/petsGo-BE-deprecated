@@ -150,7 +150,7 @@ public class PetsServiceTest {
     @Test
     void should_throw_exception_when_age_in_pet_is_null() {
         //given
-        PetDto pet = new PetDto();
+        PetDto pet = new PetDtoBuilder().withWeight(BigDecimal.ONE).build();
 
         //when
         var result = assertThrows(PetIncompleteException.class,
@@ -158,5 +158,18 @@ public class PetsServiceTest {
 
         //then
         assertEquals(ValidatorsPetEnum.NO_AGE.getMessage(), result.getMessage());
+    }
+
+    @Test
+    void should_throw_exception_when_weight_in_pet_is_null() {
+        //given
+        PetDto pet = new PetDtoBuilder().withAge(BigDecimal.TEN).build();
+
+        //when
+        var result = assertThrows(PetIncompleteException.class,
+                () -> petService.setPet(pet));
+
+        //then
+        assertEquals(ValidatorsPetEnum.NO_WEIGHT.getMessage(), result.getMessage());
     }
 }
