@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/pets")
+@RequestMapping("/api/pets")
 public class PetsController {
 
     private final PetService petService;
