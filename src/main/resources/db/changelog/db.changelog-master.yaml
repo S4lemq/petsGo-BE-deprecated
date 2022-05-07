@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
       file: db/migration/001-petsSchema.yaml
+  - include:
+      file: db/migration/002-userSchema.yaml
+  - include:
+      file: db/migration/003-roleSchema.yaml
+  - include:
+      file: db/migration/004-user-roleSchema.yaml
