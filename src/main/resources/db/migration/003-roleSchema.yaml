@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Peter Lubowicz
       changes:
         - createTable:
-            tableName: roles
+            tableName: role
             columns:
               - column:
                   name: id
@@ -17,12 +17,3 @@ databaseChangeLog:
                   type: text
                   constraints:
                     - nullable: false
-#              - column:
-#                  name: user_id
-#                  type: uuid
-#                  constraints:
-#                    nullable: false
-#                    foreignKeyName: fk_user_id_property
-#                    reference: users(id)
-#                    referencedTableName: users
-#                    referencedColumnNames: id

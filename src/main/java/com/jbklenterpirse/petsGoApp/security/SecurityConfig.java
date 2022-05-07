@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.security;
 
+import com.jbklenterpirse.petsGoApp.security.filter.CustomAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

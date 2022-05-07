@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication(exclude = {
-		SecurityAutoConfiguration.class
-})
+@SpringBootApplication
 public class PetsGoAppApplication {
 
 	public static void main(String[] args) {

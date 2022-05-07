@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Peter Lubowicz
       changes:
         - createTable:
-            tableName: user_role
+            tableName: users_roles
             columns:
               - column:
                   name: user_id
@@ -21,6 +21,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     foreignKeyName: fk_role_id_property
-                    reference: roles(id)
-                    referencedTableName: roles
+                    reference: role(id)
+                    referencedTableName: role
                     referencedColumnNames: id
