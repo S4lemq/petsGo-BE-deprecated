@@ -7,6 +7,7 @@ import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +49,28 @@ public class PetService {
         LOGGER.info("Delete pet: " + id);
         petsRepository.deleteById(id);
         LOGGER.info("Pet deleted: " + id);
+    }
+
+    public void updatePet(PetDto dto) throws UsernameNotFoundException {
+        LOGGER.info("Update pet: " + dto);
+        petValidator.validate(dto);
+        var entity = petsMapper.fromDtoToEntity(dto);
+        var petId = entity.getId();
+        var petAge = entity.getAge();
+        var petWeight = entity.getWeight();
+        var petName = entity.getName();
+        var petType = entity.getType();
+        if(petId==null){
+            LOGGER.info("Pet not found in the db");
+            throw new UsernameNotFoundException("Pet not found in db");
+        }else{
+            if(petName==null || petWeight==null || petAge==null || petType==null){
+                LOGGER.info("Pet found in db, check your info");
+            }else {
+                LOGGER.info("Pet found in db: {}", petId);
+                petsRepository.save(entity);
+                LOGGER.info("Pet updated: " + dto);
+            }
+        }
     }
 }

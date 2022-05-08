@@ -32,4 +32,7 @@ public class PetsController {
     public void deletePet(@PathVariable UUID id){
         petService.deletePet(id);
     }
+
+    @PutMapping("/update")
+    public void updatePet(@RequestBody PetDto dto) {petService.updatePet(dto);}
 }
