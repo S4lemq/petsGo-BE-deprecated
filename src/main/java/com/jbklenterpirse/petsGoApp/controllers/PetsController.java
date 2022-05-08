@@ -20,16 +20,19 @@ public class PetsController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SITTER', 'PET_SEARCHER')")
     public List<PetDto> getPets(){
         return petService.getAllPets();
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SEARCHER')")
     public void setPet(@RequestBody PetDto dto){
         petService.setPet(dto);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SEARCHER')")
     public void deletePet(@PathVariable UUID id){
         petService.deletePet(id);
     }
