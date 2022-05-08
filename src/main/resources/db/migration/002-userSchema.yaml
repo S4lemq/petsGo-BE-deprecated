@@ -32,3 +32,8 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
+              - column:
+                  name: role
+                  type: text
+                  constraints:
+                    nullable: false

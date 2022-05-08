@@ -5,7 +5,9 @@ import com.jbklenterpirse.petsGoApp.services.UserServiceImpl;
 import com.jbklenterpirse.petsGoApp.services.dtos.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+
     @PostMapping("/user/save")
     public UUID saveUser(@RequestBody UserDto userDto){
         return userService.saveUser(userDto);
@@ -30,25 +33,8 @@ public class AuthenticationController {
     }
 
 
+
+
 }
 
-class RoleToUserForm{
-    private String username;
-    private String roleName;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-}

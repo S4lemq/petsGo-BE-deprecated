@@ -1,14 +1,11 @@
 package com.jbklenterpirse.petsGoApp.repositories.entities;
 
+import com.jbklenterpirse.petsGoApp.enums.ApplicationUserRole;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Table(name="users")
 @Entity
@@ -28,8 +25,8 @@ public class UserEntity {
     private String lastName;
     private String username;
     private String password;
-    @ManyToMany(fetch = EAGER)
-    private Collection<RoleEntity> roles = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private ApplicationUserRole role;
 
     public UUID getId() {
         return id;
@@ -71,12 +68,12 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Collection<RoleEntity> getRoles() {
-        return roles;
+    public ApplicationUserRole getRole() {
+        return role;
     }
 
-    public void setRoles(Collection<RoleEntity> roles) {
-        this.roles = roles;
+    public void setRole(ApplicationUserRole role) {
+        this.role = role;
     }
 
     @Override
@@ -86,13 +83,12 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
         return Objects.equals(id, that.id)
                 && Objects.equals(username, that.username)
-                && Objects.equals(password, that.password)
-                && Objects.equals(roles, that.roles);
+                && Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, roles);
+        return Objects.hash(id, username, password);
     }
 
     @Override
@@ -103,7 +99,7 @@ public class UserEntity {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles=" + roles +
+                ", role=" + role +
                 '}';
     }
 }
