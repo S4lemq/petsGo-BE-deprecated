@@ -5,6 +5,7 @@ import com.jbklenterpirse.petsGoApp.mappers.RoleMapper;
 import com.jbklenterpirse.petsGoApp.mappers.UserMapper;
 import com.jbklenterpirse.petsGoApp.repositories.RoleRepository;
 import com.jbklenterpirse.petsGoApp.repositories.UserRepository;
+import com.jbklenterpirse.petsGoApp.repositories.entities.RoleEntity;
 import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.RoleDto;
 import com.jbklenterpirse.petsGoApp.services.dtos.UserDto;
