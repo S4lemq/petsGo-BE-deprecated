@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-pets-schema-add-gender
+      author: Eric-Kubiak
+      changes:
+        - addColumn:
+            tableName: pets
+            columns:
+              - column:
+                  name: gender
+                  type: text

@@ -208,4 +208,6 @@ public class PetsServiceTest {
         assertEquals(ValidatorsPetEnum.NO_WEIGHT.getMessage() + ", " +
                 ValidatorsPetEnum.NO_NAME.getMessage() + ", " + ValidatorsPetEnum.NO_AGE.getMessage(), result.getMessage());
     }
+
+
 }
