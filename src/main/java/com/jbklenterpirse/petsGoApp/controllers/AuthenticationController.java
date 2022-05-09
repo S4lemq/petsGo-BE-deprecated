@@ -21,19 +21,15 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-
     @PostMapping("/user/save")
     public UUID saveUser(@RequestBody UserDto userDto){
         return userService.saveUser(userDto);
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserEntity>> getUsers(){
-        return ResponseEntity.ok().body(userService.getUsers());
+    public List<UserDto> getAllUsers(){
+        return userService.getAllUsers();
     }
-
-
-
 
 }
 
