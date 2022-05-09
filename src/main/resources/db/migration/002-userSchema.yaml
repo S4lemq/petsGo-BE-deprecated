@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-user-schema
+      author: Peter Lubowicz
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: text
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: last_name
+                  type: text
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: username
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: text
+                  constraints:
+                    nullable: false
+#              - column:
+#                  name: role_id
+#                  type: uuid
+#                  constraints:
+#                    nullable: false
+#                    foreignKeyName: fk_role_id_property
+#                    reference: roles(id)
+#                    referencedTableName: roles
+#                    referencedColumnNames: id
