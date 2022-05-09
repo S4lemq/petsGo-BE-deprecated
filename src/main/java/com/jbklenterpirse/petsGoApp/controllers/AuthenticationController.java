@@ -1,9 +1,14 @@
 package com.jbklenterpirse.petsGoApp.controllers;
 
+import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 import com.jbklenterpirse.petsGoApp.services.UserServiceImpl;
 import com.jbklenterpirse.petsGoApp.services.dtos.UserDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,4 +26,11 @@ public class AuthenticationController {
         return userService.saveUser(userDto);
     }
 
+    @GetMapping("/users")
+    public List<UserDto> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
 }
+
+

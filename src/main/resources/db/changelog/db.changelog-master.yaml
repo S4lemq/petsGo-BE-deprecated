@@ -2,4 +2,6 @@ databaseChangeLog:
   - include:
       file: db/migration/001-petsSchema.yaml
   - include:
-      file: db/migration/002-petsSchemaAddGender.yaml
+      file: db/migration/002-userSchema.yaml
+  - include:
+      file: db/migration/003-petsSchemaAddGender.yaml

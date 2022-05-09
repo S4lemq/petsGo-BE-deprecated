@@ -15,8 +15,21 @@ public class UserMapper {
         entity.setLastName(userDto.getLastName());
         entity.setUsername(userDto.getUsername());
         entity.setPassword(encodedPassword(userDto.getPassword()));
+        entity.setRole(userDto.getRole());
 
         return entity;
+    }
+
+    public UserDto fromEntityToDto(UserEntity userEntity){
+        var dto = new UserDto();
+
+        dto.setFirstName(userEntity.getFirstName());
+        dto.setLastName(userEntity.getLastName());
+        dto.setUsername(userEntity.getUsername());
+        dto.setPassword(userEntity.getPassword());
+        dto.setRole(userEntity.getRole());
+
+        return dto;
     }
 
     private String encodedPassword(String password){
