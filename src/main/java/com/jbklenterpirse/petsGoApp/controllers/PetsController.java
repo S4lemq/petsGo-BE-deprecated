@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+import static com.jbklenterpirse.petsGoApp.enums.ApplicationUserRole.*;
+
 
 @RestController
 @RequestMapping("/api/pets")
@@ -20,19 +22,26 @@ public class PetsController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SITTER', 'PET_SEARCHER')")
+    @PreAuthorize("hasAnyAuthority('" +
+            APP_PET_SEARCHER + "','" +
+            APP_PET_SITTER + "','" +
+            APP_ADMIN  + "')")
     public List<PetDto> getPets(){
         return petService.getAllPets();
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SEARCHER')")
+    @PreAuthorize("hasAnyAuthority('" +
+            APP_PET_SEARCHER + "','" +
+            APP_ADMIN  + "')")
     public void setPet(@RequestBody PetDto dto){
         petService.setPet(dto);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'PET_SEARCHER')")
+    @PreAuthorize("hasAnyAuthority('" +
+            APP_PET_SEARCHER + "','" +
+            APP_ADMIN  + "')")
     public void deletePet(@PathVariable UUID id){
         petService.deletePet(id);
     }
