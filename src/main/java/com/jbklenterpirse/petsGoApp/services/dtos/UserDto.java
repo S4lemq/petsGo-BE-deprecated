@@ -1,5 +1,7 @@
 package com.jbklenterpirse.petsGoApp.services.dtos;
 
+import com.jbklenterpirse.petsGoApp.enums.ApplicationUserRole;
+
 import java.util.Objects;
 
 public class UserDto {
@@ -7,6 +9,7 @@ public class UserDto {
     private String lastName;
     private String username;
     private String password;
+    private ApplicationUserRole role;
 
     public String getFirstName() {
         return firstName;
@@ -40,6 +43,14 @@ public class UserDto {
         this.password = password;
     }
 
+    public ApplicationUserRole getRole() {
+        return role;
+    }
+
+    public void setRole(ApplicationUserRole role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,6 +71,7 @@ public class UserDto {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
