@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.services;
 
+import com.jbklenterpirse.petsGoApp.exceptions.UserAlreadyExistInDatabase;
 import com.jbklenterpirse.petsGoApp.exceptions.UserNotFoundException;
 import com.jbklenterpirse.petsGoApp.mappers.UserMapper;
 import com.jbklenterpirse.petsGoApp.repositories.UserRepository;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
@@ -49,10 +51,25 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public UUID saveUser(UserDto userDto){
+        validateIfUserExists(userDto);
         var userEntity = userMapper.fromDtoToEntity(userDto);
         var savedUserEntity = userRepository.save(userEntity);
         LOGGER.info("Saving new user: " + savedUserEntity.getUsername() + " " + savedUserEntity.getPassword());
         return savedUserEntity.getId();
+    }
+
+    public List<UserDto> getAllUsers(){
+        var userEntity = (List<UserEntity>) userRepository.findAll();
+        return userEntity.stream()
+                .map(entity -> userMapper.fromEntityToDto(entity))
+                .collect(Collectors.toList());
+    }
+
+    private void validateIfUserExists(UserDto userDto) {
+        var entity = userRepository.findByUsername(userDto.getUsername());
+        if(entity.isPresent()){
+            throw new UserAlreadyExistInDatabase();
+        }
     }
 
     public List<UserEntity> getUsers() {
