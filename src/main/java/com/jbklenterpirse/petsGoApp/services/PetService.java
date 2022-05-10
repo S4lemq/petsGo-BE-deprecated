@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.services;
 
+import com.jbklenterpirse.petsGoApp.exceptions.PetNotFoundException;
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
@@ -47,12 +48,18 @@ public class PetService {
     }
 
     public void deletePet(UUID id){
-        LOGGER.info("Delete pet: " + id);
-        petsRepository.deleteById(id);
-        LOGGER.info("Pet deleted: " + id);
+        var petId = petsRepository.findById(id);
+        if(petId!=null) {
+            LOGGER.info("Delete pet: " + id);
+            petsRepository.deleteById(id);
+            LOGGER.info("Pet deleted: " + id);
+        }
+        else {
+            throw new PetNotFoundException();
+        }
     }
 
-    public void updatePet(PetDto dto) throws UsernameNotFoundException {
+    public void updatePet(PetDto dto) throws PetNotFoundException {
         LOGGER.info("Update pet: " + dto);
         petValidator.validate(dto);
         var entity = petsMapper.fromDtoToEntity(dto);
@@ -63,15 +70,16 @@ public class PetService {
         var petType = entity.getType();
         if(petId==null){
             LOGGER.info("Pet not found in the db");
-            throw new UsernameNotFoundException("Pet not found in db");
+            throw new PetNotFoundException();
         }else{
-            if(petName==null || petWeight==null || petAge==null || petType==null){
-                LOGGER.info("Pet found in db, check your info");
-            }else {
+//            TODO: create create genderValidator, use PetValidator in update method
+            //if(){
+            //    LOGGER.info("Pet found in db, check your info");
+           // }else {
                 LOGGER.info("Pet found in db: {}", petId);
                 petsRepository.save(entity);
                 LOGGER.info("Pet updated: " + dto);
-            }
+           // }
         }
     }
 }
