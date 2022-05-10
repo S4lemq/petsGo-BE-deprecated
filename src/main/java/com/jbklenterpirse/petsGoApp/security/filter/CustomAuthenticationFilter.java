@@ -1,6 +1,5 @@
 package com.jbklenterpirse.petsGoApp.security.filter;
 
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jbklenterpirse.petsGoApp.services.JWTService;
 import org.slf4j.Logger;

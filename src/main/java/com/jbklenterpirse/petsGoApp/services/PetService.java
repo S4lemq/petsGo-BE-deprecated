@@ -2,12 +2,10 @@ package com.jbklenterpirse.petsGoApp.services;
 
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
-import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

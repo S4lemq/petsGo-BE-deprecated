@@ -38,6 +38,10 @@ public class PetsMapper {
             entityBuilder.withType(dto.getType());
         }
 
+        if(Objects.nonNull(dto.getGender())){
+            entityBuilder.withGender(dto.getGender());
+        }
+
         return entityBuilder.build();
     }
 
@@ -68,6 +72,9 @@ public class PetsMapper {
             dtoBuilder.withType(entity.getType());
         }
 
+        if(Objects.nonNull(entity.getGender())){
+            dtoBuilder.withGender(entity.getGender());
+        }
         return dtoBuilder.build();
     }
 

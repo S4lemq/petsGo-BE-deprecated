@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.builders;
 
+import com.jbklenterpirse.petsGoApp.enums.PetGender;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 
@@ -12,6 +13,7 @@ public class PetDtoBuilder {
     private BigDecimal weight;
     private BigDecimal age;
     private PetType type;
+    private PetGender gender;
 
     public PetDtoBuilder withId(UUID id){
         this.id = id;
@@ -38,6 +40,11 @@ public class PetDtoBuilder {
         return this;
     }
 
+    public PetDtoBuilder withGender(PetGender gender){
+        this.gender = gender;
+        return this;
+    }
+
     public PetDto build(){
         var dto = new PetDto();
         dto.setId(this.id);
@@ -45,6 +52,7 @@ public class PetDtoBuilder {
         dto.setWeight(this.weight);
         dto.setAge(this.age);
         dto.setType(this.type);
+        dto.setGender(this.gender);
         return dto;
     }
 
