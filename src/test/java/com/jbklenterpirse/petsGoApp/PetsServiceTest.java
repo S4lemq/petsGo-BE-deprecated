@@ -2,6 +2,7 @@ package com.jbklenterpirse.petsGoApp;
 
 import com.jbklenterpirse.petsGoApp.builders.PetDtoBuilder;
 import com.jbklenterpirse.petsGoApp.builders.PetEntityBuilder;
+import com.jbklenterpirse.petsGoApp.enums.PetGender;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 import com.jbklenterpirse.petsGoApp.enums.ValidatorsPetEnum;
 import com.jbklenterpirse.petsGoApp.exceptions.PetIncompleteException;
@@ -50,11 +51,13 @@ public class PetsServiceTest {
         var name = "nero";
         var weight = BigDecimal.TEN;
         var age = BigDecimal.ONE;
+        var gender = PetGender.MALE;
         PetEntity petEntity = new PetEntityBuilder()
                 .withType(type)
                 .withName(name)
                 .withWeight(weight)
                 .withAge(age)
+                .withGender(gender)
                 .build();
         List<PetEntity> petList = Collections.singletonList(petEntity);
         Mockito.when(petsRepository.findAll()).thenReturn(petList);
@@ -70,6 +73,7 @@ public class PetsServiceTest {
                         .withName(name)
                         .withWeight(weight)
                         .withAge(age)
+                        .withGender(gender)
                         .build());
     }
 
@@ -80,21 +84,25 @@ public class PetsServiceTest {
         var nameOne = "nero";
         var weightOne = BigDecimal.TEN;
         var ageOne = BigDecimal.ONE;
+        var genderOne = PetGender.MALE;
         var typeTwo = PetType.CAT;
         var nameTwo = "salem";
         var weightTwo = BigDecimal.ZERO;
         var ageTwo = BigDecimal.ONE;
+        var genderTwo = PetGender.FEMALE;
         PetEntity petEntityOne = new PetEntityBuilder()
                 .withType(typeOne)
                 .withName(nameOne)
                 .withWeight(weightOne)
                 .withAge(ageOne)
+                .withGender(genderOne)
                 .build();
         PetEntity petEntityTwo = new PetEntityBuilder()
                 .withType(typeTwo)
                 .withName(nameTwo)
                 .withWeight(weightTwo)
                 .withAge(ageTwo)
+                .withGender(genderTwo)
                 .build();
         List<PetEntity> petEntity = asList(petEntityOne, petEntityTwo);
         Mockito.when(petsRepository.findAll()).thenReturn(petEntity);
@@ -110,12 +118,14 @@ public class PetsServiceTest {
                             .withName(nameOne)
                             .withWeight(weightOne)
                             .withAge(ageOne)
+                            .withGender(genderOne)
                             .build(),
                         new PetDtoBuilder()
                             .withType(typeTwo)
                             .withName(nameTwo)
                             .withWeight(weightTwo)
                             .withAge(ageTwo)
+                            .withGender(genderTwo)
                             .build());
     }
 
@@ -127,17 +137,20 @@ public class PetsServiceTest {
         var name = "nero";
         var weight = BigDecimal.TEN;
         var age = BigDecimal.ONE;
+        var gender = PetGender.MALE;
         PetDto petDto = new PetDtoBuilder()
                 .withType(type)
                 .withName(name)
                 .withWeight(weight)
                 .withAge(age)
+                .withGender(gender)
                 .build();
         PetEntity petEntity = new PetEntityBuilder()
                 .withType(type)
                 .withName(name)
                 .withWeight(weight)
                 .withAge(age)
+                .withGender(gender)
                 .build();
         //when
         petService.setPet(petDto);

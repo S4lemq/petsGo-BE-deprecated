@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.services.dtos;
 
+import com.jbklenterpirse.petsGoApp.enums.PetGender;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ public class PetDto {
     private BigDecimal weight;
     private BigDecimal age;
     private PetType type;
+    private PetGender gender;
 
     public UUID getId() {
         return id;
@@ -54,6 +56,14 @@ public class PetDto {
         this.type = type;
     }
 
+    public PetGender getGender() {
+        return gender;
+    }
+
+    public void setGender(PetGender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,6 +85,7 @@ public class PetDto {
                 ", weight=" + weight +
                 ", age=" + age +
                 ", type=" + type +
+                ", gender=" + gender +
                 '}';
     }
 }
