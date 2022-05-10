@@ -13,6 +13,7 @@ import static com.jbklenterpirse.petsGoApp.enums.ApplicationUserRole.*;
 
 @RestController
 @RequestMapping("/api/pets")
+@CrossOrigin
 public class PetsController {
 
     private final PetService petService;
