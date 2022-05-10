@@ -1,5 +1,6 @@
 package com.jbklenterpirse.petsGoApp.repositories.entities;
 
+import com.jbklenterpirse.petsGoApp.enums.PetGender;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,6 +27,9 @@ public class PetEntity {
 
     @Enumerated(EnumType.STRING)
     private PetType type;
+
+    @Enumerated(EnumType.STRING)
+    private PetGender gender;
 
     public UUID getId() {
         return id;
@@ -67,6 +71,14 @@ public class PetEntity {
         this.type = type;
     }
 
+    public PetGender getGender() {
+        return gender;
+    }
+
+    public void setGender(PetGender gender) {
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +100,7 @@ public class PetEntity {
                 ", weight=" + weight +
                 ", age=" + age +
                 ", type=" + type +
+                ", gender=" + gender +
                 '}';
     }
 }

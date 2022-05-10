@@ -42,11 +42,7 @@ public class UserServiceImpl implements UserDetailsService {
                 .orElseThrow(UserNotFoundException::new);
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-
         authorities.add(new SimpleGrantedAuthority(entity.getRole().toString()));
-
-
         return new org.springframework.security.core.userdetails.User(entity.getUsername(), entity.getPassword(), authorities);
     }
 
@@ -72,9 +68,6 @@ public class UserServiceImpl implements UserDetailsService {
         }
     }
 
-    public List<UserEntity> getUsers() {
-        return (List<UserEntity>) userRepository.findAll();
-    }
 
 
 }
