@@ -31,6 +31,9 @@ public class PetEntity {
     @Enumerated(EnumType.STRING)
     private PetGender gender;
 
+    @Transient
+    private UserEntity user;
+
     public UUID getId() {
         return id;
     }
@@ -79,17 +82,25 @@ public class PetEntity {
         this.gender = gender;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PetEntity petEntity = (PetEntity) o;
-        return Objects.equals(id, petEntity.id);
+        return Objects.equals(id, petEntity.id) && Objects.equals(user, petEntity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, user);
     }
 
     @Override
@@ -101,6 +112,7 @@ public class PetEntity {
                 ", age=" + age +
                 ", type=" + type +
                 ", gender=" + gender +
+                ", user=" + user +
                 '}';
     }
 }
