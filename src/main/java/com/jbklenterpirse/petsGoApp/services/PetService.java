@@ -3,11 +3,11 @@ package com.jbklenterpirse.petsGoApp.services;
 import com.jbklenterpirse.petsGoApp.exceptions.PetNotFoundException;
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
+import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,17 +22,23 @@ public class PetService {
     private final PetsRepository petsRepository;
     private final PetsMapper petsMapper;
     private final PetValidator petValidator;
+    private final UserLoggedService userLoggedService;
 
-    public PetService(PetsRepository petsRepository, PetsMapper petsMapper, PetValidator petValidator) {
+    public PetService(PetsRepository petsRepository,
+                      PetsMapper petsMapper,
+                      PetValidator petValidator,
+                      UserLoggedService userLoggedService) {
         this.petsRepository = petsRepository;
         this.petsMapper = petsMapper;
         this.petValidator = petValidator;
+        this.userLoggedService = userLoggedService;
     }
 
     public void setPet(PetDto dto){
         LOGGER.info("Set pet: " + dto);
         petValidator.validate(dto);
-        var entity = petsMapper.fromDtoToEntity(dto);
+        UserEntity user = getUserEntity();
+        var entity = petsMapper.fromDtoToEntity(dto, user);
         petsRepository.save(entity);
         LOGGER.info("Pet saved: " + dto);
     }
@@ -60,7 +66,8 @@ public class PetService {
     public void updatePet(PetDto dto) throws PetNotFoundException {
         LOGGER.info("Update pet: " + dto);
         petValidator.validate(dto);
-        var entity = petsMapper.fromDtoToEntity(dto);
+        UserEntity user = getUserEntity();
+        var entity = petsMapper.fromDtoToEntity(dto, user);
         var petId = entity.getId();
         var petAge = entity.getAge();
         var petWeight = entity.getWeight();
@@ -79,5 +86,10 @@ public class PetService {
                 LOGGER.info("Pet updated: " + dto);
            // }
         }
+    }
+
+    private UserEntity getUserEntity() {
+        LOGGER.info("Get logged user");
+        return userLoggedService.getLoggedUserEntity();
     }
 }

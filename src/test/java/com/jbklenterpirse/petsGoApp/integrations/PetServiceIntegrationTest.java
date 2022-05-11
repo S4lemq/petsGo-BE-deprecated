@@ -3,7 +3,6 @@ package com.jbklenterpirse.petsGoApp.integrations;
 
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
-import com.jbklenterpirse.petsGoApp.repositories.UserRepository;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.PetService;
 import org.junit.jupiter.api.Test;
@@ -12,13 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class PetServiceIntergrationTest {
+public class PetServiceIntegrationTest {
 
     @Autowired
     private PetsRepository petsRepository;
