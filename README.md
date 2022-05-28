@@ -33,7 +33,7 @@ Run 'Application.main()'*
 # Tech/framework used 🔧
 | Tech & framework used |
 | ------------- |
-• Java 11 
+• Java 17 
 • Spring Framework (MVC, Data JPA, Security, Validation)
 • Spring Boot
 • Hibernate/JPA
