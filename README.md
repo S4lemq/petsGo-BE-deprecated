@@ -43,5 +43,3 @@ Run 'Application.main()'*
 • Flyway (?)
 • MapStruct
 • Thymeleaf (?)
-• Bootstrap (HTML/CSS) (?)
-
