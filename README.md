@@ -14,7 +14,7 @@ a pet sitter. We also want to add a payment mechanism.
 
 # How to run:
 - Open project with InteliJ, go to: petsGo-BE/src/main/java/com/jbklenterpirse/petsGoApp/PetsGoAppApplication.java -> right click to Application.java -> 
--> Run 'Application.main()'
+Run 'Application.main()'
 - Open petsGO-Be-main folder -> Open command line and type: mvn spring-boot:run
 - Open the app at:
 
