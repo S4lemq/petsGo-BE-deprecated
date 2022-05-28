@@ -29,12 +29,15 @@ Run 'Application.main()'*
 - Application logs
 - Clean code
 - Integration tests
+- Unit tests
 
 # Tech/framework used 🔧
 | Tech & framework used |
 | ------------- |
 • Java 17 
-• Spring Framework (MVC, Data JPA, Security, Validation)
+• Spring Framework (MVC, Data JPA, Security)
+• Spring Cache
+• AOP
 • Spring Boot
 • Hibernate/JPA
 • POSTGRESQL/SQL
@@ -42,4 +45,3 @@ Run 'Application.main()'*
 • JUnit
 • Flyway (?)
 • MapStruct
-• Thymeleaf (?)
