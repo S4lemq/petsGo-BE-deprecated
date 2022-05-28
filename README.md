@@ -1,7 +1,5 @@
 # petsGo-BE 🐶🐱
-It is a group Engineering Thesis in the implementation phase. I am responsible for
-creating the backend as well as implementing and maintaining the application on the
-server. Application is created for mobile and web systems. With the help of the
+It is a group Engineering Thesis in the implementation phase. Application is created for mobile and web systems. With the help of the
 application, we can find a job as an animal keeper or add an advertisement in search of
 a pet sitter. We also want to add a payment mechanism.
 
