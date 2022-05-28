@@ -39,7 +39,7 @@ a pet sitter. We also want to add a payment mechanism.
 • Spring Framework (MVC, Data JPA, Security, Validation)
 • Spring Boot
 • Hibernate/JPA
-• POSGRESQL/SQL
+• POSTGRESQL/SQL
 • Criteria API (?)
 • JUnit
 • Flyway (?)
