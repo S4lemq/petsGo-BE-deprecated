@@ -48,7 +48,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authentication) throws IOException {
+                                            Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
         String access_token = jwtService.generateAccessJWTToken(user, request);
         String refresh_token = jwtService.generateRefreshJWTToken(user,request);

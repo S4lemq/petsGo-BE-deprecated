@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(entity.getUsername(), entity.getPassword(), authorities);
     }
 
-    public UUID saveUser(UserDto userDto){
+    public UUID saveUser(UserDto userDto) {
         validateIfUserExists(userDto);
         var userEntity = userMapper.fromDtoToEntity(userDto);
         var savedUserEntity = userRepository.save(userEntity);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserDetailsService {
         return savedUserEntity.getId();
     }
 
-    public List<UserDto> getAllUsers(){
+    public List<UserDto> getAllUsers() {
         var userEntity = (List<UserEntity>) userRepository.findAll();
         return userEntity.stream()
                 .map(entity -> userMapper.fromEntityToDto(entity))
@@ -63,11 +63,13 @@ public class UserServiceImpl implements UserDetailsService {
 
     private void validateIfUserExists(UserDto userDto) {
         var entity = userRepository.findByUsername(userDto.getUsername());
-        if(entity.isPresent()){
+        if (entity.isPresent()) {
             throw new UserAlreadyExistInDatabase();
         }
     }
 
-
-
+    public UserDto getUser(String username) {
+        var userEntity = userRepository.findByUsername(username);
+        return userMapper.fromEntityToDto(userEntity.orElseThrow());
+    }
 }
