@@ -24,6 +24,8 @@ public class PetEntity {
     private String name;
     private BigDecimal weight;
     private BigDecimal age;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserEntity user;
 
     @Enumerated(EnumType.STRING)
     private PetType type;
@@ -79,17 +81,25 @@ public class PetEntity {
         this.gender = gender;
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PetEntity petEntity = (PetEntity) o;
-        return Objects.equals(id, petEntity.id);
+        return Objects.equals(id, petEntity.id) && Objects.equals(user, petEntity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, user);
     }
 
     @Override
@@ -99,6 +109,7 @@ public class PetEntity {
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", age=" + age +
+                ", user=" + user +
                 ", type=" + type +
                 ", gender=" + gender +
                 '}';

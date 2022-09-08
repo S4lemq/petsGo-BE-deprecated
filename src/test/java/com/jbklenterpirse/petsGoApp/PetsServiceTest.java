@@ -10,6 +10,7 @@ import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.services.PetService;
+import com.jbklenterpirse.petsGoApp.services.UserLogInfoService;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import com.jbklenterpirse.petsGoApp.validators.PetValidator;
 import org.assertj.core.api.Assertions;
@@ -33,6 +34,8 @@ public class PetsServiceTest {
 
     @Mock
     private PetsRepository petsRepository;
+    @Mock
+    private UserLogInfoService userLogInfoService;
     private PetValidator petValidator = new PetValidator();
     private final PetsMapper petsMapper = new PetsMapper();
 
@@ -40,7 +43,7 @@ public class PetsServiceTest {
 
     @BeforeEach
     public void init(){
-        petService = new PetService(petsRepository, petsMapper, petValidator);
+        petService = new PetService(petsRepository, petsMapper, petValidator, userLogInfoService);
     }
 
 

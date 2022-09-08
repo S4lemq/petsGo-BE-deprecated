@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-pet-schema-add-user-column
+      author: Peter Lubowicz
+      changes:
+        - addColumn:
+            tableName: pets
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_id_pets
+                    references: users(id)

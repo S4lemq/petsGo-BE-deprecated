@@ -3,6 +3,7 @@ package com.jbklenterpirse.petsGoApp.builders;
 import com.jbklenterpirse.petsGoApp.enums.PetGender;
 import com.jbklenterpirse.petsGoApp.enums.PetType;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
+import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -14,6 +15,7 @@ public class PetEntityBuilder {
     private BigDecimal age;
     private PetType type;
     private PetGender gender;
+    private UserEntity userEntity;
 
     public PetEntityBuilder withId(UUID id){
         this.id = id;
@@ -45,6 +47,11 @@ public class PetEntityBuilder {
         return this;
     }
 
+    public PetEntityBuilder withUser(UserEntity user) {
+        this.userEntity = user;
+        return this;
+    }
+
     public PetEntity build(){
         var entity = new PetEntity();
         entity.setId(this.id);
@@ -53,7 +60,7 @@ public class PetEntityBuilder {
         entity.setAge(this.age);
         entity.setType(this.type);
         entity.setGender(this.gender);
+        entity.setUser(this.userEntity);
         return entity;
     }
-
 }

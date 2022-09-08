@@ -28,6 +28,7 @@ public class UserServiceImplIntegrationTest {
 
     @Autowired
     private UserServiceImpl userService;
+
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String USER_NAME = "userName";
@@ -116,8 +117,7 @@ public class UserServiceImplIntegrationTest {
         entity.setRole(PET_SITTER);
         userRepository.save(entity);
 
-        //when
-        //var result = assertThrows()
+        //TODO napisać implementację i test
 
         //then
     }

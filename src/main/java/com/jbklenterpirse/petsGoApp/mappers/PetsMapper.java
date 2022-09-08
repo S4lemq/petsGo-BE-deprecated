@@ -3,6 +3,7 @@ package com.jbklenterpirse.petsGoApp.mappers;
 import com.jbklenterpirse.petsGoApp.builders.PetDtoBuilder;
 import com.jbklenterpirse.petsGoApp.builders.PetEntityBuilder;
 import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
+import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Component
 public class PetsMapper {
 
-    public PetEntity fromDtoToEntity(PetDto dto){
+    public PetEntity fromDtoToEntity(PetDto dto, UserEntity user){
         if(Objects.isNull(dto)){
             return null;
         }
@@ -40,6 +41,10 @@ public class PetsMapper {
 
         if(Objects.nonNull(dto.getGender())){
             entityBuilder.withGender(dto.getGender());
+        }
+
+        if(Objects.nonNull(user)){
+            entityBuilder.withUser(user);
         }
 
         return entityBuilder.build();
