@@ -36,7 +36,7 @@ public class PetsServiceTest {
     private PetsRepository petsRepository;
     @Mock
     private UserLogInfoService userLogInfoService;
-    private PetValidator petValidator = new PetValidator();
+    private PetValidator petValidator = new PetValidator(petsRepository);
     private final PetsMapper petsMapper = new PetsMapper();
 
     private PetService petService;

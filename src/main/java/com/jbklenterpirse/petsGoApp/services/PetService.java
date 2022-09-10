@@ -1,8 +1,10 @@
 package com.jbklenterpirse.petsGoApp.services;
 
+import com.jbklenterpirse.petsGoApp.exceptions.PetAlreadyExistException;
 import com.jbklenterpirse.petsGoApp.exceptions.PetNotFoundException;
 import com.jbklenterpirse.petsGoApp.mappers.PetsMapper;
 import com.jbklenterpirse.petsGoApp.repositories.PetsRepository;
+import com.jbklenterpirse.petsGoApp.repositories.entities.PetEntity;
 import com.jbklenterpirse.petsGoApp.repositories.entities.UserEntity;
 import com.jbklenterpirse.petsGoApp.services.dtos.PetDto;
 import com.jbklenterpirse.petsGoApp.validators.PetValidator;
@@ -10,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -34,13 +39,17 @@ public class PetService {
         this.userLogInfoService = userLogInfoService;
     }
 
-    public void setPet(PetDto dto){
+    public PetEntity setPet(PetDto dto){
         LOGGER.info("Set pet: " + dto);
+        if(petsRepository.isExists(dto.getName(), dto.getAge(), dto.getWeight(), dto.getType()))
+            throw new PetAlreadyExistException();
+
         petValidator.validate(dto);
         UserEntity user = getUserEntity();
         var entity = petsMapper.fromDtoToEntity(dto, user);
         petsRepository.save(entity);
         LOGGER.info("Pet saved: " + dto);
+        return entity;
     }
 
     public List<PetDto> getAllPets() {
@@ -48,49 +57,50 @@ public class PetService {
         UserEntity user = getUserEntity();
         var petsEntity = petsRepository.getPetsByUser(user);
         return petsEntity.stream()
-                .map(entity -> petsMapper.fromEntityToDto(entity))
+                .map(petsMapper::fromEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public void deletePet(UUID id){
-        var petId = petsRepository.findById(id);
-        if(petId!=null) {
-            LOGGER.info("Delete pet: " + id);
+        Optional<PetEntity> optionalPet = petsRepository.findById(id);
+        if(optionalPet.isPresent()) {
+            LOGGER.info("Delete pet: " + optionalPet.get());
             petsRepository.deleteById(id);
-            LOGGER.info("Pet deleted: " + id);
-        }
-        else {
+        } else {
             throw new PetNotFoundException();
         }
     }
 
-    public void updatePet(PetDto dto) throws PetNotFoundException {
-        LOGGER.info("Update pet: " + dto);
-        petValidator.validate(dto);
-        UserEntity user = getUserEntity();
-        var entity = petsMapper.fromDtoToEntity(dto, user);
-        var petId = entity.getId();
-        var petAge = entity.getAge();
-        var petWeight = entity.getWeight();
-        var petName = entity.getName();
-        var petType = entity.getType();
-        if(petId==null){
-            LOGGER.info("Pet not found in the db");
-            throw new PetNotFoundException();
-        }else{
-//            TODO: create genderValidator, use PetValidator in update method
-            //if(){
-            //    LOGGER.info("Pet found in db, check your info");
-           // }else {
-                LOGGER.info("Pet found in db: {}", petId);
-                petsRepository.save(entity);
-                LOGGER.info("Pet updated: " + dto);
-           // }
+    @Transactional
+    public void updatePet(PetDto petDto){
+        LOGGER.info("Update pet: " + petDto);
+        Optional<PetEntity> optionalPet = petsRepository.findById(petDto.getId());
+        optionalPet.ifPresent(petEntity -> updatePet(petEntity, petDto));
+    }
+    private static void updatePet(PetEntity entity, PetDto dto){
+        if(Objects.nonNull(dto.getName())
+                && !dto.getName().equals(entity.getName())){
+            entity.setName(dto.getName());
+        }
+        if(Objects.nonNull(dto.getWeight())
+                && !dto.getWeight().equals(entity.getWeight())){
+            entity.setWeight(dto.getWeight());
+        }
+        if(Objects.nonNull(dto.getAge())
+                && !dto.getAge().equals(entity.getAge())){
+            entity.setAge(dto.getAge());
+        }
+        if(Objects.nonNull(dto.getType())
+                && !dto.getType().equals(entity.getType())){
+            entity.setType(dto.getType());
+        }
+        if(Objects.nonNull(dto.getGender())
+                && !dto.getGender().equals(entity.getGender())){
+            entity.setGender(dto.getGender());
         }
     }
 
     private UserEntity getUserEntity() {
-        LOGGER.info("Get Logged User Entity");
         return userLogInfoService.getLoggedUserEntity();
     }
 }

@@ -1,11 +1,11 @@
 package com.jbklenterpirse.petsGoApp.enums;
 
-public enum PetNotExist {
+public enum PetExceptionEnum {
     PET_NOT_FOUND("pet not found");
 
     private final String message;
 
-    PetNotExist(String message) {
+    PetExceptionEnum(String message) {
         this.message = message;
     }
 
