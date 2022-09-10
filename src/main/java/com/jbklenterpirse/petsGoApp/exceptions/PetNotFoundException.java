@@ -1,10 +1,9 @@
 package com.jbklenterpirse.petsGoApp.exceptions;
 
-
-import com.jbklenterpirse.petsGoApp.enums.PetNotExist;
+import com.jbklenterpirse.petsGoApp.enums.PetExceptionEnum;
 
 public class PetNotFoundException extends RuntimeException{
     public PetNotFoundException() {
-        super(PetNotExist.PET_NOT_FOUND.getMessage());
+        super(PetExceptionEnum.PET_NOT_FOUND.getMessage());
     }
 }
