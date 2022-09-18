@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -21,5 +22,7 @@ public interface PetsRepository extends JpaRepository<PetEntity, UUID> {
     @Query("SELECT count(p.id) > 0 FROM PetEntity p" +
             " WHERE p.name = :name AND p.age = :age AND p.weight = :weight AND p.type = :type")
     boolean isExists(String name, BigDecimal age, BigDecimal weight, PetType type);
+
+    Optional<PetEntity> getPetById(UUID id);
 
 }

@@ -52,4 +52,13 @@ public class PetsController {
 
     @PutMapping("/update")
     public void updatePet(@RequestBody PetDto dto) {petService.updatePet(dto);}
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('" +
+            APP_PET_SEARCHER + "','" +
+            APP_PET_SITTER + "','" +
+            APP_ADMIN  + "')")
+    public PetDto getPetById(@PathVariable UUID id){
+        return petService.getPetById(id);
+    }
 }

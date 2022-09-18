@@ -61,6 +61,17 @@ public class PetService {
                 .collect(Collectors.toList());
     }
 
+    public PetDto getPetById(UUID id){
+        UserEntity user = getUserEntity();
+        Optional<PetEntity> optionalPet = petsRepository.getPetById(id);
+        if(optionalPet.isPresent()) {
+            LOGGER.info("Get pet by id: " + id);
+            return petsMapper.fromEntityToDto(optionalPet.get());
+        } else {
+            throw new PetNotFoundException();
+        }
+    }
+
     public void deletePet(UUID id){
         Optional<PetEntity> optionalPet = petsRepository.findById(id);
         if(optionalPet.isPresent()) {
